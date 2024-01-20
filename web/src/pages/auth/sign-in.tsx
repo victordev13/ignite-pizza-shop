@@ -1,9 +1,12 @@
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, HttpStatusCode } from 'axios'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { signIn } from '@/api/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,14 +24,30 @@ export function SignIn() {
     formState: { isSubmitting },
   } = useForm<SignInFormData>()
 
+  const { mutateAsync: signInRequest } = useMutation({
+    mutationFn: signIn,
+  })
+
   async function handleSignIn(data: SignInFormData) {
-    console.log(data)
-    toast.success('teste', {
-      action: {
-        label: 'Reenviar',
-        onClick: console.log,
-      },
-    })
+    try {
+      await signInRequest({ email: data.email })
+
+      toast.success('Enviamos um link de autenticação para o seu e-mail', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSignIn(data),
+        },
+      })
+    } catch (err) {
+      if (!(err instanceof AxiosError)) {
+        console.error(err)
+        return
+      }
+
+      if (err.response?.status === HttpStatusCode.Unauthorized) {
+        toast.error('Credenciais inválidas')
+      }
+    }
   }
 
   return (
