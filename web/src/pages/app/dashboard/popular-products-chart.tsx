@@ -12,7 +12,7 @@ const data = [
   { product: 'salame', amount: 7 },
 ]
 
-const COLORS = [
+const PIZZA_CHART_COLORS = [
   colors.sky[500],
   colors.amber[500],
   colors.violet[500],
@@ -26,7 +26,7 @@ export function PopularProductsChart() {
       <CardHeader className="pb-8 ">
         <div className="flex items-center justify-center">
           <CardTitle className="text-base font-medium">Mais vendidos</CardTitle>
-          <BarChart className="h-4 w-4 text-muted-foreground" />
+          <BarChart className="ml-1 h-4 w-4 text-muted-foreground" />
         </div>
       </CardHeader>
 
@@ -77,7 +77,7 @@ export function PopularProductsChart() {
               {data.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={COLORS[index]}
+                  fill={PIZZA_CHART_COLORS[index]}
                   className="stroke-background hover:opacity-80"
                 />
               ))}
