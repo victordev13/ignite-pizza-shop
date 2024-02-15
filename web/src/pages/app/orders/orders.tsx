@@ -12,12 +12,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { OrderStatus } from '@/types/order'
 
 import { OrderTableFilters } from './order-table-filters'
 import OrderTableRow from './order-table-row'
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const orderId = searchParams.get('orderId')
+  const customerName = searchParams.get('customerName')
+  const status = searchParams.get('status')
 
   const pageIndex = Math.abs(
     z.coerce
@@ -28,8 +33,14 @@ export function Orders() {
   )
 
   const { data: ordersPaginated } = useQuery({
-    queryKey: [`orders-${pageIndex}`],
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ['orders', orderId, customerName, status],
+    queryFn: () =>
+      getOrders({
+        pageIndex,
+        orderId,
+        customerName,
+        status: status && status in OrderStatus ? status : null,
+      }),
   })
 
   const handlePageChange = (pageIndex: number) => {
