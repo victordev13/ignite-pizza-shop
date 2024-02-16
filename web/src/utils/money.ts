@@ -1,10 +1,10 @@
-function format(value: number) {
-  return value.toLocaleString('pt-BR', {
+function formatFromCents(value: number) {
+  return (value / 100).toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   })
 }
 
 export default {
-  format,
+  formatFromCents,
 }

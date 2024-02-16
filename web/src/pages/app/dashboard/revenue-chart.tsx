@@ -48,7 +48,7 @@ export function RevenueChart() {
               stroke="#888"
               axisLine={false}
               tickLine={false}
-              tickFormatter={(value: number) => money.format(value)}
+              tickFormatter={(value: number) => money.formatFromCents(value)}
               width={80}
             />
 
