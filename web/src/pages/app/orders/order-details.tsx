@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
-import { getOrderDetails } from '@/api/get-order-detailes'
+import { getOrderDetails } from '@/api/get-order-details'
 import { OrderStatus } from '@/components/order-status'
 import {
   DialogContent,

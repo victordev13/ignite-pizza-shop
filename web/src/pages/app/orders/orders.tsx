@@ -33,7 +33,7 @@ export function Orders() {
   )
 
   const { data: ordersPaginated } = useQuery({
-    queryKey: ['orders', orderId, customerName, status],
+    queryKey: ['orders', pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
         pageIndex,
