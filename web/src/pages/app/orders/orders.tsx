@@ -16,6 +16,7 @@ import { OrderStatus } from '@/types/order'
 
 import { OrderTableFilters } from './order-table-filters'
 import OrderTableRow from './order-table-row'
+import { OrderTableSkeleton } from './order-table-skeleton'
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -32,7 +33,7 @@ export function Orders() {
       .parse(searchParams.get('page') ?? 1),
   )
 
-  const { data: ordersPaginated } = useQuery({
+  const { data: ordersPaginated, isLoading } = useQuery({
     queryKey: ['orders', pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
@@ -78,10 +79,14 @@ export function Orders() {
             </TableHeader>
 
             <TableBody>
-              {ordersPaginated &&
+              {isLoading ? (
+                <OrderTableSkeleton />
+              ) : (
+                ordersPaginated &&
                 ordersPaginated.orders.map((order) => (
                   <OrderTableRow key={order.orderId} order={order} />
-                ))}
+                ))
+              )}
             </TableBody>
           </Table>
         </div>

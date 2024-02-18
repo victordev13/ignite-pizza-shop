@@ -21,6 +21,8 @@ import {
 } from '@/components/ui/table'
 import money from '@/utils/money'
 
+import OrderDetailsSkeleton from './order-details-skeleton'
+
 interface OrderDetailsProps {
   orderId: string
   open: boolean
@@ -40,7 +42,9 @@ export default function OrderDetails({ orderId, open }: OrderDetailsProps) {
         <DialogDescription>Detalhes do pedido</DialogDescription>
       </DialogHeader>
 
-      {order && (
+      {!order ? (
+        <OrderDetailsSkeleton />
+      ) : (
         <div className="space-y-6">
           <Table>
             <TableBody>
@@ -118,10 +122,12 @@ export default function OrderDetails({ orderId, open }: OrderDetailsProps) {
             </TableBody>
 
             <TableFooter>
-              <TableCell colSpan={3}>Total do pedido</TableCell>
-              <TableCell className="text-right font-medium">
-                {money.formatFromCents(order.totalInCents)}
-              </TableCell>
+              <TableRow>
+                <TableCell colSpan={3}>Total do pedido</TableCell>
+                <TableCell className="text-right font-medium">
+                  {money.formatFromCents(order.totalInCents)}
+                </TableCell>
+              </TableRow>
             </TableFooter>
           </Table>
         </div>
