@@ -23,7 +23,10 @@ const statusColor: Record<OrderStatusType, string> = {
 export function OrderStatus({ status }: OrderStatusProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className={`h-2 w-2 rounded-full ${statusColor[status]}`} />
+      <span
+        className={`h-2 w-2 rounded-full ${statusColor[status]}`}
+        data-testid="badge"
+      />
       <span className="font-medium text-muted-foreground">
         {orderStatusMap[status]}
       </span>
