@@ -1,6 +1,6 @@
 import { api } from '@/lib/axios'
 
-interface ProfileResponse {
+export interface ProfileResponse {
   name: string
   id: string
   email: string
