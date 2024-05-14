@@ -21,7 +21,10 @@ export function PopularProductsChart() {
   })
 
   return (
-    <Card className="col-span-3 bg-transparent">
+    <Card
+      className="col-span-3 bg-transparent"
+      data-testid="popular-products-chart"
+    >
       <CardHeader className="pb-8 ">
         <div className="flex items-center justify-center">
           <CardTitle className="text-base font-medium">Mais vendidos</CardTitle>

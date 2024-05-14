@@ -14,7 +14,7 @@ export function MonthRevenueCard() {
   })
 
   return (
-    <Card className="bg-transparent">
+    <Card className="bg-transparent" data-testid="month-revenue-card">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-base font-semibold">
           Receita total (mês)
