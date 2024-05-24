@@ -10,7 +10,7 @@ describe('Pagination', async () => {
     onPageChangeCallback.mockClear() // reset spy calls before every tests
   })
 
-  it('should display the right amount of pages and results', () => {
+  it('should display the right amount of pages and results', async () => {
     const wrapper = render(
       <Pagination
         pageIndex={0}
@@ -20,8 +20,8 @@ describe('Pagination', async () => {
       />,
     )
 
-    expect(wrapper.getByText('Página 1 de 20')).toBeInTheDocument()
-    expect(wrapper.getByText('Total de 200 itens')).toBeInTheDocument()
+    await expect(wrapper.getByText('Página 1 de 20')).toBeInTheDocument()
+    await expect(wrapper.getByText('Total de 200 itens')).toBeInTheDocument()
   })
 
   it('should be able to navigate to the next page', async () => {
@@ -42,9 +42,9 @@ describe('Pagination', async () => {
 
     await user.click(nextPageButton)
 
-    expect(wrapper.getByText('Página 1 de 20')).toBeInTheDocument()
+    await expect(wrapper.getByText('Página 1 de 20')).toBeInTheDocument()
     // espero que `onPageChange` seja chamada com o parâmetro 1
-    expect(onPageChangeCallback).toHaveBeenCalledWith(1)
+    await expect(onPageChangeCallback).toHaveBeenCalledWith(1)
   })
 
   it('should be able to navigate to the previous page', async () => {
@@ -65,8 +65,8 @@ describe('Pagination', async () => {
 
     await user.click(previousPageButton)
 
-    expect(wrapper.getByText('Página 6 de 20')).toBeInTheDocument()
-    expect(onPageChangeCallback).toHaveBeenCalledWith(4)
+    await expect(wrapper.getByText('Página 6 de 20')).toBeInTheDocument()
+    await expect(onPageChangeCallback).toHaveBeenCalledWith(4)
   })
 
   it('should be able to navigate to the first page', async () => {
@@ -87,7 +87,7 @@ describe('Pagination', async () => {
 
     await user.click(firstPageButton)
 
-    expect(onPageChangeCallback).toHaveBeenCalledWith(0)
+    await expect(onPageChangeCallback).toHaveBeenCalledWith(0)
   })
   it('should be able to navigate to the first page', async () => {
     const user = userEvent.setup()
@@ -107,7 +107,7 @@ describe('Pagination', async () => {
 
     await user.click(firstPageButton)
 
-    expect(onPageChangeCallback).toHaveBeenCalledWith(0)
+    await expect(onPageChangeCallback).toHaveBeenCalledWith(0)
   })
 
   it('should be able to navigate to the last page', async () => {
@@ -128,6 +128,6 @@ describe('Pagination', async () => {
 
     await user.click(firstPageButton)
 
-    expect(onPageChangeCallback).toHaveBeenCalledWith(19)
+    await expect(onPageChangeCallback).toHaveBeenCalledWith(19)
   })
 })

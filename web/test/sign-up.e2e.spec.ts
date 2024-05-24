@@ -12,7 +12,7 @@ test('sign in successfully', async ({ page }) => {
 
   const toast = page.getByText('Restaurante cadastrado com sucesso!')
 
-  expect(toast).toBeVisible()
+  await expect(toast).toBeVisible()
 })
 
 test('sign up with error', async ({ page }) => {
@@ -27,7 +27,7 @@ test('sign up with error', async ({ page }) => {
 
   const toast = page.getByText('Ocorreu um erro interno 😩!')
 
-  expect(toast).toBeVisible()
+  await expect(toast).toBeVisible()
 })
 
 test('navigate to login page', async ({ page }) => {
@@ -35,5 +35,5 @@ test('navigate to login page', async ({ page }) => {
 
   await page.getByRole('link', { name: 'Já tenho conta' }).click()
 
-  expect(page.url()).toContain('/sign-in')
+  await expect(page.url()).toContain('/sign-in')
 })
